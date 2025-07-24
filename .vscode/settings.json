@@ -1,0 +1,84 @@
+{
+  // ===== EDITOR CONFIGURATION =====
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": false,
+
+  // ===== EXPLORER SETTINGS =====
+  "explorer.compactFolders": false,
+
+  // ===== TYPESCRIPT CONFIGURATION =====
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // ===== TAILWINDCSS CONFIGURATION =====
+  "tailwindCSS.experimental.classRegex": [["className\\s*:\\s*['\"]([^'\"]*)['\"]"]],
+
+  // ===== SEARCH CONFIGURATION =====
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.vercel": true
+  },
+
+  // ===== FILE WATCHING =====
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/dist/**": true,
+    "**/.vercel/**": true
+  },
+
+  // ===== FORMATTER CONFIGURATION =====
+  "prettier.enable": false,
+
+  // ===== CODE ACTIONS & AUTO-FIX =====
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.removeUnusedImports": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // ===== ESLINT RULE CUSTOMIZATIONS =====
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
+  ],
+
+  // ===== ESLINT LANGUAGE SUPPORT =====
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "json5",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ]
+}
