@@ -83,6 +83,9 @@ export function elysiaDevServer(options: ElysiaDevServerOptions): Plugin {
           // Call Elysia app
           const response = await elysiaApp.fetch(request);
 
+          // Clone the response to avoid body consumption issues
+          const clonedResponse = response.clone();
+
           // Set response headers
           response.headers.forEach((value: string, key: string) => {
             res.setHeader(key, value);
@@ -90,22 +93,16 @@ export function elysiaDevServer(options: ElysiaDevServerOptions): Plugin {
 
           res.statusCode = response.status;
 
-          if (response.body) {
-            const reader = response.body.getReader();
-            const pump = async () => {
-              try {
-                while (true) {
-                  const { done, value } = await reader.read();
-                  if (done) break;
-                  res.write(value);
-                }
-                res.end();
-              } catch (error) {
-                console.error('Error streaming response:', error);
-                res.end();
-              }
-            };
-            pump();
+          // Convert response body to text and send it
+          if (clonedResponse.body) {
+            try {
+              const text = await clonedResponse.text();
+              res.write(text);
+              res.end();
+            } catch (error) {
+              console.error('Error reading response:', error);
+              res.end();
+            }
           } else {
             res.end();
           }

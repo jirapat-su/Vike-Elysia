@@ -6,7 +6,7 @@ import pkg from '@/package.json';
 
 import { apiRoutes } from './routes';
 
-const api = new Elysia({ name: 'app.api', prefix: '/api' })
+const api = new Elysia({ name: 'app.api' })
   .use(
     cors({
       origin: true,

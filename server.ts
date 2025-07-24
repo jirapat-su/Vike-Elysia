@@ -5,12 +5,17 @@ import { api } from '@/src/api';
 import { simpleContext } from '@/src/utils/server/simple-context';
 import { vikeHandler } from '@/src/utils/server/vike-handler';
 
+const vikeServer = new Elysia({
+  name: 'vike.server',
+})
+  .use(createMiddleware(simpleContext)())
+  .all('*', createHandler(vikeHandler)());
+
 const app = new Elysia({
   name: 'app.server',
 })
-  .use(createMiddleware(simpleContext)())
-  .use(api)
-  .all('*', createHandler(vikeHandler)());
+  .mount('/api', api.handle)
+  .mount('/', vikeServer.handle);
 
 const GET = app.handle;
 const POST = app.handle;
