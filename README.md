@@ -1,6 +1,11 @@
-# Vike Elysia
+# ![Vike_Logo](public/vike.svg) Vike Elysia
 
 A modern full-stack web application built with [Vike](https://vike.dev), [React](https://react.dev), [Elysia](https://elysiajs.com), and [TailwindCSS](https://tailwindcss.com).
+
+
+## 🌐 Live Demo
+**[Website](https://vike-elysia.vercel.app/)** - View the live application  
+**[API Docs](https://vike-elysia.vercel.app/api/docs)** - Explore the API endpoints
 
 ## 🚀 Tech Stack
 
