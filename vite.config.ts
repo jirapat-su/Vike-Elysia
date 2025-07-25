@@ -4,7 +4,7 @@ import vike from 'vike/plugin';
 import { defineConfig } from 'vite';
 import vercel from 'vite-plugin-vercel';
 
-import { elysiaDevServer } from './src/utils/server/dev-server';
+import { devServer } from './dev-server';
 
 export default defineConfig({
   build: {
@@ -12,8 +12,8 @@ export default defineConfig({
   },
   plugins: [
     vike(),
-    elysiaDevServer({
-      entry: 'server.ts',
+    devServer({
+      entry: 'server/app.server.ts',
 
       exclude: [
         /^\/@.+$/,
@@ -39,7 +39,7 @@ export default defineConfig({
       {
         destination: 'ssr_',
         route: false,
-        source: 'server.ts',
+        source: 'server/app.server.ts',
       },
     ],
   },

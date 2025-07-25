@@ -48,6 +48,21 @@ A modern full-stack web application built with [Vike](https://vike.dev), [React]
 - **Check dependencies**: `bun run check-deps`
 - **Upgrade dependencies**: `bun run upgrade-deps`
 
+### Docker
+
+Run the application using Docker:
+
+1. **Build the image**:
+   ```bash
+   docker build -t vike-elysia .
+   ```
+
+2. **Run the container**:
+   ```bash
+   docker run -p 4000:4000 -e PORT=4000 vike-elysia
+   ```
+   The app will be available at `http://localhost:4000`
+
 ## 📚 Key Features
 
 ### Vike Framework

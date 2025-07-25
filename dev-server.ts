@@ -11,7 +11,7 @@ type ElysiaDevServerOptions = {
   injectClientScript?: boolean;
 };
 
-export function elysiaDevServer(options: ElysiaDevServerOptions): Plugin {
+export function devServer(options: ElysiaDevServerOptions): Plugin {
   const { entry, exclude = [] } = options;
 
   let server: ViteDevServer;
@@ -80,20 +80,15 @@ export function elysiaDevServer(options: ElysiaDevServerOptions): Plugin {
             method: req.method,
           });
 
-          // Call Elysia app
           const response = await elysiaApp.fetch(request);
-
-          // Clone the response to avoid body consumption issues
           const clonedResponse = response.clone();
-
-          // Set response headers
           response.headers.forEach((value: string, key: string) => {
             res.setHeader(key, value);
           });
 
           res.statusCode = response.status;
 
-          // Convert response body to text and send it
+          // Convert response body to text
           if (clonedResponse.body) {
             try {
               const text = await clonedResponse.text();
@@ -115,6 +110,6 @@ export function elysiaDevServer(options: ElysiaDevServerOptions): Plugin {
       // Use the middleware for all requests
       server.middlewares.use(middleware);
     },
-    name: 'elysia-dev-server',
+    name: 'dev-server-plugin',
   };
 }
