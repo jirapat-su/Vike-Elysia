@@ -14,7 +14,7 @@ const vikeServer = new Elysia({
 const app = new Elysia({
   name: 'app.server',
 })
-  .mount('/api', api.handle)
+  .use(api)
   .mount('/', vikeServer.handle);
 
 const GET = app.handle;

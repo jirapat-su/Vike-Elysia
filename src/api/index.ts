@@ -6,7 +6,7 @@ import pkg from '@/package.json';
 
 import { apiRoutes } from './routes';
 
-const api = new Elysia({ name: 'app.api' })
+const api = new Elysia({ name: 'app.api', prefix: '/api', strictPath: true })
   .use(
     cors({
       origin: true,
@@ -23,6 +23,7 @@ const api = new Elysia({ name: 'app.api' })
       },
       exclude: ['/api/docs', '/api/docs/json'],
       path: '/docs',
+      provider: 'scalar',
       scalarConfig: {
         defaultHttpClient: {
           clientKey: 'fetch',
