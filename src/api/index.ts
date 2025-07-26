@@ -12,7 +12,7 @@ const api = new Elysia({ name: 'app.api', prefix: '/api', strictPath: true })
       origin: true,
     })
   )
-  .use(apiRoutes())
+  .use(apiRoutes)
   .use(
     swagger({
       documentation: {
