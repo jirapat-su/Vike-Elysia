@@ -1,25 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2021",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    // path alias
     "baseUrl": ".",
     "rootDir": ".",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./*"]
     },
     "resolveJsonModule": true,
-    "types": ["vite/client", "vike-react", "vite-plugin-vercel/types"],
+    "types": [],
     "strict": true,
-    "noEmit": true,
-    "sourceMap": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "preserveSymlinks": true,
     "skipLibCheck": true
   },
-  "exclude": ["dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test", "example", "dist"]
 }

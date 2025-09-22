@@ -1,84 +1,61 @@
 {
-  // ===== EDITOR CONFIGURATION =====
-  "editor.tabSize": 2,
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "biome.lsp.bin": "./node_modules/@biomejs/biome/bin/biome",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  "editor.formatOnPaste": false,
-
-  // ===== EXPLORER SETTINGS =====
+  "editor.tabSize": 2,
+  "eslint.enable": false,
   "explorer.compactFolders": false,
-
-  // ===== TYPESCRIPT CONFIGURATION =====
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.referencesCodeLens.enabled": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-
-  // ===== TAILWINDCSS CONFIGURATION =====
-  "tailwindCSS.experimental.classRegex": [["className\\s*:\\s*['\"]([^'\"]*)['\"]"]],
-
-  // ===== SEARCH CONFIGURATION =====
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/.vercel": true
-  },
-
-  // ===== FILE WATCHING =====
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
   "files.watcherExclude": {
-    "**/node_modules/**": true,
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
+    "**/.vercel/**": true,
     "**/dist/**": true,
-    "**/.vercel/**": true
+    "**/node_modules/**": true
   },
-
-  // ===== FORMATTER CONFIGURATION =====
   "prettier.enable": false,
-
-  // ===== CODE ACTIONS & AUTO-FIX =====
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always",
-    "source.removeUnusedImports": "explicit",
-    "source.organizeImports": "never"
+  "search.exclude": {
+    "**/.vercel": true,
+    "**/dist": true,
+    "**/node_modules": true
   },
-
-  // ===== ESLINT RULE CUSTOMIZATIONS =====
-  "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off", "fixable": true },
-    { "rule": "format/*", "severity": "off", "fixable": true },
-    { "rule": "*-indent", "severity": "off", "fixable": true },
-    { "rule": "*-spacing", "severity": "off", "fixable": true },
-    { "rule": "*-spaces", "severity": "off", "fixable": true },
-    { "rule": "*-order", "severity": "off", "fixable": true },
-    { "rule": "*-dangle", "severity": "off", "fixable": true },
-    { "rule": "*-newline", "severity": "off", "fixable": true },
-    { "rule": "*quotes", "severity": "off", "fixable": true },
-    { "rule": "*semi", "severity": "off", "fixable": true }
+  "tailwindCSS.experimental.classRegex": [
+    ["className\\s*:\\s*['\"]([^'\"]*)['\"]"]
   ],
-
-  // ===== ESLINT LANGUAGE SUPPORT =====
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "html",
-    "markdown",
-    "json",
-    "json5",
-    "jsonc",
-    "yaml",
-    "toml",
-    "xml",
-    "gql",
-    "graphql",
-    "astro",
-    "svelte",
-    "css",
-    "less",
-    "scss",
-    "pcss",
-    "postcss"
-  ]
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": ["^@mui/[^/]+$"],
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

@@ -1,43 +1,51 @@
 # images preparation
 FROM imbios/bun-node:latest-20-alpine-git AS builder-image
-FROM oven/bun:slim AS runner-image
+FROM oven/bun:alpine AS runner-image
+
+# Set environment variable to indicate CI environment
+ENV CI=1
 
 # Builder stage --------------------------------------------
 FROM builder-image AS builder
+
+# Set working directory
 WORKDIR /app
-# Install dependencies
-COPY package.json bun.lock* ./
+
+# Set environment variable for production build
+ENV NODE_ENV=production
+
+# Copy project files to the working directory
+COPY . .
+
 # Use frozen lockfile to ensure consistent installs
 RUN bun install --frozen-lockfile
-COPY . .
+
+# Build the application for production
 RUN bun run build
+
+# Compile standalone server
+RUN bun build \
+  --compile \
+  --minify-whitespace \
+  --minify-syntax \
+  --outfile ./build/server \
+  ./dist/server/index.standalone.mjs
 
 # Runner stage ---------------------------------------------
 FROM runner-image AS runner
+
+# Set working directory
 WORKDIR /app
 
 # Copy built files from the builder stage
-COPY --from=builder /app/dist ./dist
+COPY --from=builder --chmod=755 /app/dist/client ./dist/client
+COPY --from=builder --chmod=755 /app/build/server server
 
-# Create and set up non-root user
-RUN addgroup --system --gid 1001 nodejs && \
-  adduser --system --uid 1001 runner
-
-# Set up necessary directories and permissions
-RUN mkdir -p .next && \
-  chown runner:nodejs dist
-
-USER runner
-
-# Set environment to production
+# Set environment variables for production
 ENV NODE_ENV=production
 ENV PORT=3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD bun --version || exit 1
 
 EXPOSE $PORT
 
 # Start the application
-CMD ["bun", "dist/server/index.standalone.mjs"]
+CMD ["./server"]
