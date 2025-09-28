@@ -1,38 +1,45 @@
 import cors from '@elysiajs/cors';
-import swagger from '@elysiajs/swagger';
+import openapi from '@elysiajs/openapi';
+import { fromTypes } from '@elysiajs/openapi/gen';
 import Elysia from 'elysia';
+import { defaultRouter } from './router/default';
 
-import pkg from '@/package.json';
-
-import { apiRoutes } from './routes';
-
-const api = new Elysia({ name: 'app.api', prefix: '/api', strictPath: true })
+export const api = new Elysia({
+  name: 'app.api',
+  prefix: '/api',
+  strictPath: true,
+})
+  .use(
+    openapi({
+      documentation: {
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              bearerFormat: 'JWT',
+              scheme: 'bearer',
+              type: 'http',
+            },
+          },
+        },
+        info: {
+          title: 'Vike + Elysia API',
+          version: '1.0.0',
+        },
+        security: [{ bearerAuth: [] }],
+      },
+      enabled: process.env.NODE_ENV === 'development',
+      exclude: {
+        methods: ['all', 'options', 'head'],
+      },
+      path: '/docs',
+      provider: 'scalar',
+      references: fromTypes('src/api/index.ts'),
+      specPath: '/docs/json',
+    })
+  )
   .use(
     cors({
       origin: true,
     })
   )
-  .use(apiRoutes)
-  .use(
-    swagger({
-      documentation: {
-        info: {
-          title: 'API Documentation',
-          version: pkg.version,
-        },
-      },
-      exclude: ['/api/docs', '/api/docs/json'],
-      path: '/docs',
-      provider: 'scalar',
-      scalarConfig: {
-        defaultHttpClient: {
-          clientKey: 'fetch',
-          targetKey: 'javascript',
-        },
-        spec: { url: '/api/docs/json' },
-      },
-    })
-  );
-
-export type API = typeof api;
-export { api };
+  .use(defaultRouter);

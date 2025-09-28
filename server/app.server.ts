@@ -1,5 +1,4 @@
 import type { Get, UniversalHandler } from '@universal-middleware/core';
-
 import { createHandler, createMiddleware } from '@universal-middleware/elysia';
 import Elysia from 'elysia';
 import { renderPage } from 'vike/server';
@@ -16,10 +15,11 @@ const vikeHandler: Get<[], UniversalHandler> =
       headersOriginal: request.headers,
       urlOriginal: request.url,
     };
-
     const pageContext = await renderPage(pageContextInit);
     const response = pageContext.httpResponse;
-    const readable = response.getReadableWebStream();
+
+    const { readable, writable } = new TransformStream();
+    response.pipe(writable);
 
     return new Response(readable, {
       headers: response.headers,
@@ -27,19 +27,13 @@ const vikeHandler: Get<[], UniversalHandler> =
     });
   };
 
-// Create the Vike server instance
-const vikeServer = new Elysia({
-  name: 'vike.server',
-})
-  .use(createMiddleware(simpleContext)())
-  .all('*', createHandler(vikeHandler)());
-
 // Create the main application server instance
 const appServer = new Elysia({
   name: 'app.server',
 })
   .use(api)
-  .mount('/', vikeServer.handle);
+  .use(createMiddleware(simpleContext)())
+  .all('*', createHandler(vikeHandler)());
 
 // Export the handlers for different HTTP methods
 export const GET = appServer.handle;

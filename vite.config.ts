@@ -34,13 +34,17 @@ export default defineConfig({
   resolve: {
     alias: { '@': __dirname },
   },
-  vercel: {
-    additionalEndpoints: [
-      {
-        destination: 'ssr_',
-        route: false,
-        source: 'server/app.server.ts',
-      },
-    ],
-  },
+  ...(process.env.VERCEL === '1'
+    ? {
+        vercel: {
+          additionalEndpoints: [
+            {
+              destination: 'ssr_',
+              route: false,
+              source: 'server/app.server.ts',
+            },
+          ],
+        },
+      }
+    : {}),
 });
